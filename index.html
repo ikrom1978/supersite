@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Main Page</title>
+
+
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	
+  <?php 
+     require_once "files/navbar.php";
+  ?>
+
+<!-- container-row-col
+ -->
+ <div class="container">
+ 	<div class="row">
+ 		<div class="col-md-8">
+ 			<?php 
+
+ 				$user = "root";
+				$pass = "";
+				$db = "users";
+				$host = "localhost";
+
+				$dsn = "mysql:host=".$host.";dbname=".$db;
+				$pdo = new PDO($dsn,$user,$pass);
+						
+				$sql = 'SELECT * FROM `maqolalar` ORDER BY `sana` DESC';
+		
+				$query = $pdo->query($sql);
+
+				while ($row=$query->fetch(PDO::FETCH_OBJ)) {
+					echo "<h1>$row->title</h1>
+						<p class='lead'>$row->textShort</p>
+						<p><b>Author:</b> $row->author</p>
+						<a href='oneArticle.php'>
+							<button class= 'btn btn-primary'>Read more</button>
+						</a>
+						<hr>
+					";
+				}
+
+ 			 ?>
+ 		</div>
+ 		
+		<?php 
+			require_once "files/poster.php"
+ 		?>
+ 	</div>
+ </div>
+
+<script src="jquery-3.3.1.min.js"></script>
+</body>
+</html>
